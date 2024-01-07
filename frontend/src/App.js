@@ -21,6 +21,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import ListUsers from "./Pages/Dashboard/ListUsers";
 import ListAnnonces from "./Pages/Dashboard/ListAnnonces";
 import AnnonceModel from "./Pages/Dashboard/AnnonceModel";
+import Category from "./Pages/Dashboard/Category";
 
 
 
@@ -102,7 +103,12 @@ function App() {
       {
         path: "/dashboard/annonces/:id",
         element: <AnnonceModel/>,
+      },
+      {
+        path: "/dashboard/category",
+        element: <Category/>,
       }
+
 
      
     ],

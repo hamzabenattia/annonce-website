@@ -39,6 +39,8 @@ const AnnonceModel = () => {
         });
     }
 
+    console.log(data)
+
     return (
         <>
 
@@ -86,7 +88,7 @@ const AnnonceModel = () => {
                                             {formatDistance(data.createdAt, new Date(), { addSuffix: true })}
                                         </span>
                                         <span className="px-2.5  py-0.5 text-xs text-blue-600 bg-blue-100 dark:bg-gray-700 rounded-xl dark:text-gray-200">
-                                            <Link to={`/search?category=${data.category?.categoryName}`}>   {data.category?.categoryName}</Link>
+                                            <Link to={`/search?category=${data.category.categoryName}`}>   {data.category.categoryName}</Link>
                                         </span>
 
                                         <span className="px-2.5  py-0.5 text-xs text-blue-600 bg-blue-100 dark:bg-gray-700 rounded-xl dark:text-gray-200">
@@ -198,7 +200,7 @@ const AnnonceModel = () => {
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
             Etes-vous sûr de vouloir Accepter cette Annonce ?            </h3>
             <div className="flex justify-center gap-4">
-              <Button color="sucess" onClick={handelAccept}>
+              <Button color="success" onClick={handelAccept}>
                 {"Oui"}
               </Button>
               <Button color="gray" onClick={() => setAcceptModel(false)}>

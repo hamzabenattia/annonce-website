@@ -100,7 +100,7 @@ exports.getAllAds = async (req, res) => {
 
 exports.getAdsById = async (req, res) => {
     try {
-        const ads = await Ads.findById(req.params.id);
+        const ads = await Ads.findById(req.params.id).populate("createdBy category", "categoryName firstname lastname email phonenum");
         res.status(200).json(ads);
     } catch (error) {
         res.status(500).json({
@@ -158,3 +158,40 @@ exports.refuseAds = async (req, res) => {
     }
 }
 
+
+exports.dashboardStatestique = async (req, res) => {
+    try {
+        // Total Ads, Accepted Ads, Pending Ads, Rejected Ads
+        const totalAds = await Ads.countDocuments();
+        const acceptedAds = await Ads.countDocuments({ status: 'accepted' });
+        const pendingAds = await Ads.countDocuments({ status: 'pending' });
+        const rejectedAds = await Ads.countDocuments({ status: 'rejected' });
+    
+        // Monthly Ads
+        const monthlyAds = await Ads.aggregate([
+          {
+            $group: {
+              _id: { $month: '$createdAt' },
+              count: { $sum: 1 },
+            },
+          },
+        ]);
+    
+        const statistics = {
+          totalAds,
+          acceptedAds,
+          pendingAds,
+          rejectedAds,
+          monthlyAds,
+        };
+    
+        res.json(statistics);
+      } catch (error) {
+    
+        res.status(500).json({
+            message: "Erreur lors de la récupération des statistiques",
+            error: error.message,
+        });
+      }
+
+    }

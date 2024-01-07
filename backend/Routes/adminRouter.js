@@ -1,6 +1,6 @@
 const express = require("express");
 const { authMiddleware, adminMiddleware } = require("../Middleware/authMiddleware");
-const { getAllUsers, getUserById, editUser, getAllAds, getAdsById, deleteAds, acceptAds, deleteUser, refuseAds } = require("../Controller/adminController");
+const { getAllUsers, getUserById, editUser, getAllAds, getAdsById, deleteAds, acceptAds, deleteUser, refuseAds, dashboardStatestique } = require("../Controller/adminController");
 const adminRouter = express.Router();
 
 
@@ -15,6 +15,7 @@ adminRouter.delete("/annonce/:id",authMiddleware,adminMiddleware,deleteAds);
 adminRouter.get("/annonce/refuse/:id",authMiddleware,adminMiddleware,refuseAds);
 adminRouter.get("/annonce/accept/:id",authMiddleware,adminMiddleware,acceptAds);
 
+adminRouter.get("/dashboard",authMiddleware,adminMiddleware,dashboardStatestique);
 
 
 

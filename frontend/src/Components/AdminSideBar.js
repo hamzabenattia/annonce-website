@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 
 function AdminSideBar() {
   return (
@@ -62,6 +63,18 @@ function AdminSideBar() {
            <DescriptionOutlinedIcon/>
             
             <span className="flex-1 ms-3 whitespace-nowrap">Les Annonce</span>
+            
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            to="/dashboard/category"
+            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          >
+           <CategoryOutlinedIcon/>
+            
+            <span className="flex-1 ms-3 whitespace-nowrap">Categorie</span>
             
           </Link>
         </li>

@@ -18,10 +18,6 @@ function ConfirmeEmail() {
     
       const { data, isLoading , error } = useFetch(asyncList);
     
-      console.log("data",data)
-      console.log("isloading", isLoading)
-      console.log("erreur",error)
-
 
   return (
     <div

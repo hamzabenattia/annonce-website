@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useFetch from '../../Hooks/useFetch';
 import { API_BASE_URL } from '../../constant/constant';
 import axios from 'axios';
-import { Pagination } from 'flowbite-react';
+import { Pagination, Spinner } from 'flowbite-react';
 import { formatDistance } from 'date-fns';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -43,12 +43,14 @@ const ListAnnonces = () => {
 
 
   return (
-    <div className='flex flex-col m-20 gap-4'>
+    <div className='flex flex-col md:m-20 gap-4'>
       <h1 className='text-xl font-bold'>List des Annonces : </h1>
       {
-        isLoading ? <div>Loading...</div> : 
+        isLoading ? <div className='text-center'>
+          <Spinner/>
+          </div> : 
       
-      <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
+      <table className="min-w-full divide-y divide-gray-200 ">
   <thead className="bg-gray-50">
     <tr>
       <th
@@ -93,25 +95,25 @@ const ListAnnonces = () => {
        ).map((annonce)=>(
     
 
-        <tr key={annonce._id}>
+        <tr key={annonce?._id}>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
             <div>
-              <div className="text-sm font-medium text-gray-900">{annonce.title}</div>
-              <div className="text-sm text-gray-500">{annonce.category.categoryName}</div>
+              <div className="text-sm font-medium text-gray-900">{annonce?.title}</div>
+              <div className="text-sm text-gray-500">{annonce?.category?.categoryName}</div>
             </div>
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="text-sm text-gray-900">
-          {formatDistance(annonce.createdAt, new Date(), { addSuffix: true })}
+          {formatDistance(annonce?.createdAt, new Date(), { addSuffix: true })}
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
           {
-            annonce.status === "accepted" ? <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+            annonce?.status === "accepted" ? <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
             Acceptée
-          </span> : annonce.status === "refused" ?  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+          </span> : annonce?.status === "refused" ?  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
             Rejetée
           </span>
           :
@@ -122,7 +124,7 @@ const ListAnnonces = () => {
        
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {annonce.createdBy.firstname} {" "}{annonce.createdBy.lastname}
+            {annonce?.createdBy?.firstname} {" "}{annonce?.createdBy?.lastname}
         </td>
        
         <td className="px-6 flex py-4 whitespace-nowrap  text-sm font-medium">

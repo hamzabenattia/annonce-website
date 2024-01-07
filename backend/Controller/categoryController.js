@@ -1,3 +1,4 @@
+const Ads = require("../Models/adsSchema");
 const Category = require("../Models/categorySchema");
 
 
@@ -40,13 +41,15 @@ exports.createCategory = async (req, res) => {
 exports.deleteCategory = async (req, res) => {
   const { id } = req.params;
   try {
+    
     const category = await Category.findByIdAndDelete(id);
-    if (category) {
 
+    if (category) {
+      await Ads.deleteMany({ category: id });
       res.status(200).json({
         message: "Catégorie supprimée avec succès",
       });
-
+    
     } else {
       res.status(400).json({
         message: "Erreur lors de la suppression de la catégorie",
@@ -63,14 +66,13 @@ exports.deleteCategory = async (req, res) => {
 
 exports.editCategory = async (req, res) => {
   const { id } = req.params;
-  const { categoryName, parentCategory, image } = req.body;
+  const { categoryName, parentCategory } = req.body;
   try {
     const category = await Category.findByIdAndUpdate(
       id,
       {
         categoryName,
         parentCategory,
-        image,
       },
       { new: true }
     );
