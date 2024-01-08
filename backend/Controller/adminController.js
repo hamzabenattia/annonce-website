@@ -1,4 +1,5 @@
 const Ads = require("../Models/adsSchema");
+const Category = require("../Models/categorySchema");
 const User = require("../Models/userSchema");
 
 exports.getAllUsers = async (req, res) => {
@@ -165,7 +166,9 @@ exports.dashboardStatestique = async (req, res) => {
         const totalAds = await Ads.countDocuments();
         const acceptedAds = await Ads.countDocuments({ status: 'accepted' });
         const pendingAds = await Ads.countDocuments({ status: 'pending' });
-        const rejectedAds = await Ads.countDocuments({ status: 'rejected' });
+        const rejectedAds = await Ads.countDocuments({ status: 'refused' });
+        const totalUser = await User.countDocuments();
+        const totalCategory = await Category.countDocuments();
     
         // Monthly Ads
         const monthlyAds = await Ads.aggregate([
@@ -183,6 +186,8 @@ exports.dashboardStatestique = async (req, res) => {
           pendingAds,
           rejectedAds,
           monthlyAds,
+          totalUser,
+          totalCategory,
         };
     
         res.json(statistics);
