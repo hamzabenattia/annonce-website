@@ -24,11 +24,12 @@ function MesAnnonce() {
 
   return (
     <div className='flex flex-col m-10 items-center justify-center '>
-      <h1 className='text-2xl font-bold'>Mes Annonce Publier</h1>
-     {
+       {
       isLoading ? <div className="text-center"><Spinner/></div> : 
-     
-      
+      data.length === 0 ? <h1 className='text-2xl font-bold'>Vous n'avez pas des annonces</h1> :
+      <>
+      <h1 className='text-2xl font-bold'>Mes Annonce Publier</h1>
+    
       <table className="table-auto border-collapse border border-orange-200 m-10">
   <thead>
     <tr>
@@ -75,6 +76,7 @@ function MesAnnonce() {
   
     </tbody>
 </table>
+</>
 }
 
     </div>

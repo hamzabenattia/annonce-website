@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useFetch from '../../Hooks/useFetch';
 import { API_BASE_URL } from '../../constant/constant';
 import axios from 'axios';
-import { Pagination } from 'flowbite-react';
+import { Pagination, Spinner } from 'flowbite-react';
 
 
 const ListUsers = () => {
@@ -27,7 +27,11 @@ const ListUsers = () => {
   const [userPerPage, setUserPerPage] = useState(10);
   const totalPages = Math.ceil(data?.length / userPerPage);
 
-
+    const handelUserEdit = (id,isActive,isAdmin) => {
+      axios.put(API_BASE_URL+'/admin/users/'+id,{isActive,isAdmin},{withCredentials: true} ).then((res)=>{
+        window.location.reload();
+       });
+    }
 
 
 
@@ -36,7 +40,7 @@ const ListUsers = () => {
     <div className='flex flex-col m-20 gap-4'>
       <h1 className='text-xl font-bold'>List des Utilisateur : </h1>
       {
-        isLoading ? <div>Loading...</div> : 
+        isLoading ? <div className='text-center'><Spinner/></div> : 
       
       <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
   <thead className="bg-gray-50">
@@ -102,26 +106,22 @@ const ListUsers = () => {
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          {
-            user.isActive ? <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-            Active
-          </span> : <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-            Desactive
-          </span>
-          }
-       
+          <select onChange={(e) => handelUserEdit(user._id ,e.target.value,null) } className={`font-semibold text-sm ${user.isActive && 'bg-green-100 text-green-800'} ${!user.isActive && 'bg-red-100 text-red-800'}` }   defaultValue={user.isActive}>
+              <option className='rounded-full bg-green-100 text-green-800'  value={true}>Active</option>
+              <option  className='bg-red-100 text-red-800' value={false}>Desactive</option>
+            </select>
+
+  
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-          {
-            user.isAdmin ? <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-            Admin
-            </span> : <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-              User
-              </span>}
+            <select onChange={(e) => handelUserEdit(user._id ,null, e.target.value) } className={`font-semibold text-sm ${user.isAdmin && 'bg-blue-100 text-blue-800'} ${!user.isAdmin && 'bg-gray-100 text-gray-800'}` }   defaultValue={user.isAdmin}>
+              <option className='rounded-full bg-blue-100 text-blue-800'  value={true}>Admin</option>
+              <option  className='bg-gray-100 text-gray-800' value={false}>User</option>
+            </select>
+        
         </td>
        
         <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-         
           <div onClick={() => handleDelete(user._id)} className="ml-2 text-red-600 hover:text-red-900 cursor-pointer">
             Delete
           </div>
@@ -131,12 +131,12 @@ const ListUsers = () => {
 
     }
   
-  <Pagination layout="navigation" currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} showIcons />
 
    
    
   </tbody>
 </table>}
+<Pagination layout="navigation" currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} showIcons />
 
 
     </div>

@@ -80,10 +80,13 @@ const Login = () => {
       <button type='submit' disabled={isLoading} onClick={login} className="rounded-lg bg-orange-500 py-2 font-bold text-white hover:bg-orange-600">
        {isLoading ? <> Logingin...</> : <>Login</>}
       </button>
+      
       <p className='text-center'>
         Don't have an account ? <Link to="/signup" className="text-orange-500">Sign Up</Link>
       </p>
+     
     </div>
+    
   </div>
   
 

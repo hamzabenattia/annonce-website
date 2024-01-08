@@ -93,7 +93,6 @@ e.preventDefault();
             setError(err.response.data.message);
             setSuccess("")
             setIsLoading(false);
-            console.log(err);
         }
     }
 

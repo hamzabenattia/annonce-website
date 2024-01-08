@@ -65,7 +65,6 @@ exports.createAds = async (req, res) => {
             message: "Erreur lors de la création de l'annonce",
             error: error.message,
         });
-        console.log(error);
     }
     
 }
@@ -248,7 +247,6 @@ exports.searchAds = async (req, res) => {
     
         res.status(201).json(ads);
       } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Erreur lors de la recherche.' });
       }
 
@@ -321,6 +319,5 @@ catch (error) {
         message: "Erreur lors de la mise à jour de l'annonce",
         error: error.message,
     });
-    console.log(error);
 }
 }

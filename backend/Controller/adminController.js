@@ -1,6 +1,8 @@
 const Ads = require("../Models/adsSchema");
 const Category = require("../Models/categorySchema");
 const User = require("../Models/userSchema");
+const { AdsAcceptedTemplate } = require("../template/AdsAcceptedTemplate");
+const sendEmail = require("../utils/sendEmail");
 
 exports.getAllUsers = async (req, res) => {
     try {
@@ -62,7 +64,7 @@ exports.getUserById = async (req, res) => {
 
 exports.editUser = async (req, res) => {
     try {
-        const user = findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (user) {
             res.status(201).json("user modifié avec succès");
         }
@@ -75,6 +77,7 @@ exports.editUser = async (req, res) => {
             message: "Erreur lors de la modification de l'utilisateur",
             error: error.message,
         });
+        console.log(error);
 
     }
 
@@ -133,14 +136,24 @@ exports.deleteAds = async (req, res) => {
 
 exports.acceptAds = async (req, res) => {
     try {
-       await Ads.findByIdAndUpdate(req.params.id, { isAccepted: true , status: "accepted"});
-        res.status(200).json("Annonce acceptée avec succès");
+       const ads = await Ads.findByIdAndUpdate(req.params.id, { isAccepted: true , status: "accepted"}).populate("createdBy", "email");
+       
+       await sendEmail({
+        email: ads.createdBy.email,
+        subject: "Félicitation ! Votre annonce a été acceptée",
+        message: AdsAcceptedTemplate(ads._id),
+      }); 
+
+      
+       res.status(200).json("Annonce acceptée avec succès");
+
     } catch (error) {
         res.status(500).json({
             message: "Erreur lors de l'acceptation de l'annonce",
             error: error.message,
         });
         console.log(error);
+
 
     }
 }
@@ -149,7 +162,6 @@ exports.refuseAds = async (req, res) => {
     try {
        const {data} = await Ads.findByIdAndUpdate(req.params.id, { isAccepted: false , status: "refused"});
         res.status(200).json("Annonce refusée avec succès");
-        console.log(data);
 
     } catch (error) {
         res.status(500).json({

@@ -108,7 +108,7 @@ const Category = () => {
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
             <div className="ml-4">
-              <input type='text' onChange={(e)=> setEditCategoryName(e.target.value)} defaultValue={category.categoryName} className="text-sm font-medium text-gray-900"/>
+              <input type='text'  onChange={(e)=> setEditCategoryName(e.target.value)} defaultValue={category.categoryName} className="text-sm font-medium text-gray-900"/>
             </div>
           </div>
         </td>
@@ -129,12 +129,13 @@ const Category = () => {
 
     }
   
-  <Pagination layout="navigation" currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} showIcons />
 
    
    
   </tbody>
 </table>}
+
+<Pagination layout="navigation" currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} showIcons />
 
 
     </div>

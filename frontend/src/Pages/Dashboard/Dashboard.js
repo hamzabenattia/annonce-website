@@ -17,8 +17,6 @@ const Dashboard = () => {
 
 const { data, isLoading } = useFetch(asyncList);
 
-console.log(data)
-
   return (
     <>
    { 
@@ -86,23 +84,9 @@ console.log(data)
         </div>
 
 <div className='flex flex-wrap m-11 justify-around'>
-  <div className='shadow-sm rounded-lg '>
-  <PieChart
-      series={[
-        {
-          data: [
-            { id: 0, value: data.acceptedAds || 0, label: 'Accepted' , color: '#0E9F6E' },
-            { id: 1, value: data.rejectedAds|| 0, label: 'Refused' , color: '#DC3545' },
-            { id: 2, value: data.pendingAds|| 0, label: 'Pending' , color: '#F9E79F'},
-          ],
-        },
-      ]}
-      width={400}
-      height={200}
-    />
-  </div>
 
-  <div className='shadow-sm rounded-lg'>
+
+  <div className='shadow-sm rounded-lg  '>
   <PieChart
       series={[
         {

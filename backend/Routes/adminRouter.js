@@ -14,7 +14,6 @@ adminRouter.get("/annonce/:id",authMiddleware,adminMiddleware,getAdsById);
 adminRouter.delete("/annonce/:id",authMiddleware,adminMiddleware,deleteAds);
 adminRouter.get("/annonce/refuse/:id",authMiddleware,adminMiddleware,refuseAds);
 adminRouter.get("/annonce/accept/:id",authMiddleware,adminMiddleware,acceptAds);
-
 adminRouter.get("/dashboard",authMiddleware,adminMiddleware,dashboardStatestique);
 
 

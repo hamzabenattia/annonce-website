@@ -4,7 +4,6 @@ const User = require("../Models/userSchema");
 function authMiddleware(req, res, next) {
   const token = req.cookies.token;
 
-  console.log(req.coockies)
 
 
   if (!token) {

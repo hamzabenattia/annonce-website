@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { formatDistance } from "date-fns";
-import { Button, Carousel,Modal } from 'flowbite-react';
+import { Button, Carousel,Modal, Spinner } from 'flowbite-react';
 import { API_BASE_URL } from '../../constant/constant';
 import useFetch from '../../Hooks/useFetch';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
@@ -11,13 +11,13 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 const AnnonceModel = () => {
     const params = useParams();
     const navigate = useNavigate();
+    const [Loading , setLoading] = useState(false)
     function asyncList() {
         return axios.get(API_BASE_URL + '/admin/annonce/' + params.id, { withCredentials: true });
     }
 
     const { data, isLoading } = useFetch(asyncList);
 
-    console.log(data)
 
 
     const [openRejectModel, setRejectModel] = useState(false);
@@ -25,21 +25,24 @@ const AnnonceModel = () => {
 
 
     const handelAccept = () => {
+        setLoading(true)
    axios.get(API_BASE_URL + '/admin/annonce/accept/' + params.id, { withCredentials: true }).then((res) => {
           setAcceptModel(false)
             navigate(-1)
+            setLoading(false)
         });
     }
 
     
    const handelReject = () => {
+    setLoading(true)
         axios.get(API_BASE_URL + '/admin/annonce/refuse/' + params.id, { withCredentials: true }).then((res) => {
           setRejectModel(false)
             navigate(-1)
+            setLoading(false)
         });
     }
 
-    console.log(data)
 
     return (
         <>
@@ -74,8 +77,8 @@ const AnnonceModel = () => {
                                     </div>
 
                                     <div className='flex justify-center items-center gap-8'>
-                                        <Button color="success" onClick={() => setAcceptModel(true)}>Accepter</Button>
-                                        <Button color="failure" onClick={() => setRejectModel(true)}>Rejecter</Button>
+                                        <Button color="success" disabled={data.status==="accepted"} onClick={() => setAcceptModel(true)}>Accepter</Button>
+                                        <Button color="failure" disabled={data.status==="refused"}  onClick={() => setRejectModel(true)}>Rejecter</Button>
 
 
                                     </div>
@@ -178,6 +181,11 @@ const AnnonceModel = () => {
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
             Etes-vous sûr de vouloir refuser cette Annonce ?            </h3>
             <div className="flex justify-center gap-4">
+                {
+                    Loading && <div className='tex-center'>
+                        <Spinner/>
+                    </div>
+                }
               <Button color="failure" onClick={handelReject}>
                 {"Oui"}
               </Button>
@@ -200,6 +208,11 @@ const AnnonceModel = () => {
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
             Etes-vous sûr de vouloir Accepter cette Annonce ?            </h3>
             <div className="flex justify-center gap-4">
+            {
+                    Loading && <div className='tex-center'>
+                        <Spinner/>
+                    </div>
+                }
               <Button color="success" onClick={handelAccept}>
                 {"Oui"}
               </Button>

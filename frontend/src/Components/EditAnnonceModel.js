@@ -80,11 +80,9 @@ function EditAnnonceModel({ openModal, setOpenModal, data }) {
         setLoading(true)
         e.preventDefault();
         setFormData({ ...formData, images: images })
-        console.log(formData)
 
         try {
             await axios.put(API_BASE_URL + '/annonce/'+data._id, formData, { withCredentials: true }).then((res) => {
-                console.log(res);
                 setSuccess(res.data.message);
                 setLoading(false)
 
@@ -95,11 +93,11 @@ function EditAnnonceModel({ openModal, setOpenModal, data }) {
             });
 
         } catch (err) {
-            console.log(err);
+            setError(err.response.data.message);
+                setLoading(false)
         }
     }
 
-    console.log(data)
 
 
 

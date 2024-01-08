@@ -66,6 +66,5 @@ exports.updateUserInformation = async (req, res) => {
             message: "Erreur lors de la mise à jour de l'utilisateur",
             error: error.message,
         });
-        console.log(error);
     }
 };

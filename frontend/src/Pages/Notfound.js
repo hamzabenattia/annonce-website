@@ -1,9 +1,6 @@
-import { useRouteError } from "react-router-dom";
 
 
 const Notfound = () => {
-  const error = useRouteError();
-  console.error("hhhh",error);
   return (
 <div className="flex items-center justify-center h-screen space-y-5">  
   <div className="flex flex-col items-start space-y-3 sm:flex-row sm:space-y-0 sm:items-center sm:space-x-3">

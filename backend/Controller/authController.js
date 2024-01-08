@@ -54,7 +54,6 @@ exports.register = async (req, res, next) => {
     res.status(500).json({
       message: "Erreur Serveur."
     });
-    console.log(error);
   }
 
 

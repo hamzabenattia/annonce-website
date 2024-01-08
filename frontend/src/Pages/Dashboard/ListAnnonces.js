@@ -3,10 +3,7 @@ import useFetch from '../../Hooks/useFetch';
 import { API_BASE_URL } from '../../constant/constant';
 import axios from 'axios';
 import { Pagination, Spinner } from 'flowbite-react';
-import { formatDistance } from 'date-fns';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import { Link } from 'react-router-dom';
+import AnnonceTable from '../../Components/Dashboard/AnnonceTable';
 
 const ListAnnonces = () => {
 
@@ -16,6 +13,11 @@ const ListAnnonces = () => {
 
   const { data, isLoading } = useFetch(asyncList);
 
+  function CategotyFetch() {
+    return axios.get(API_BASE_URL+'/category/',{withCredentials: true} );
+  }
+
+  const { data:category } = useFetch(CategotyFetch);
 
 
   // Delete Annonce
@@ -39,18 +41,82 @@ const ListAnnonces = () => {
 
 
 
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+  
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = data.filter((value) => {
+      return  value.title.toLowerCase().includes(searchWord.toLowerCase()) ||
+              value.status.toLowerCase().includes(searchWord.toLowerCase()) ||
+              value.category.categoryName.toLowerCase().includes(searchWord.toLowerCase())
+  
+            });
+  
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
+    }
+  };
+
+
+
+
 
 
 
   return (
     <div className='flex flex-col md:m-20 gap-4'>
       <h1 className='text-xl font-bold'>List des Annonces : </h1>
+
       {
         isLoading ? <div className='text-center'>
           <Spinner/>
-          </div> : 
-      
-      <table className="min-w-full divide-y divide-gray-200 ">
+          </div> :
+<>
+<header className="card-header bg-white">
+          <div className="row gx-3 py-3">
+            <div className="col-lg-4 col-md-6 me-auto">
+              <input
+              onChange={handleFilter}
+                type="text"
+                placeholder="Recherche..."
+                className="form-control p-2 border border-orange-200"
+              />
+            </div>
+            <div className="col-lg-2 col-6 col-md-3">
+            <select onChange={(e) => setannoncePerPage(e.target.value)} className="form-select">
+                <option value={10}>Afficher 10</option>
+                <option value={20}>Afficher 20</option>
+                <option value={30}>Afficher 30</option>
+                <option value={data?.length}>Afficher tout</option>
+              </select>
+            </div>
+            <div className="col-lg-2 col-6 col-md-3">
+            <select onChange={handleFilter} className="form-select">
+                <option value={""}>Status</option>
+                <option value={"Pending"}>En Attent</option>
+                <option value={"Refused"}>Refusée</option>
+                <option value={"Accepted"}>Acceptée</option>
+              </select>
+            </div>
+
+            <div className="col-lg-2 col-6 col-md-3">
+            <select onChange={handleFilter} className="form-select">
+                <option value={""}>Category</option>
+                {
+                  category?.map((cat)=>(
+                    <option key={cat._id} value={cat.categoryName}>{cat.categoryName}</option>
+                  ))
+                }
+              </select>
+            </div>
+            
+          </div>
+        </header>
+        <table className="min-w-full divide-y divide-gray-200 ">
   <thead className="bg-gray-50">
     <tr>
       <th
@@ -88,69 +154,41 @@ const ListAnnonces = () => {
     </tr>
   </thead>
   <tbody className="bg-white divide-y divide-gray-200">
-    {
-      data?.slice(
-        (currentPage - 1) * annoncePerPage,
-        currentPage * annoncePerPage
-       ).map((annonce)=>(
-    
 
-        <tr key={annonce?._id}>
-        <td className="px-6 py-4 whitespace-nowrap">
-          <div className="flex items-center">
-            <div>
-              <div className="text-sm font-medium text-gray-900">{annonce?.title}</div>
-              <div className="text-sm text-gray-500">{annonce?.category?.categoryName}</div>
-            </div>
-          </div>
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap">
-          <div className="text-sm text-gray-900">
-          {formatDistance(annonce?.createdAt, new Date(), { addSuffix: true })}
-          </div>
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap">
-          {
-            annonce?.status === "accepted" ? <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-            Acceptée
-          </span> : annonce?.status === "refused" ?  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-            Rejetée
-          </span>
-          :
-            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                En attente
-                </span>
-          }
-       
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {annonce?.createdBy?.firstname} {" "}{annonce?.createdBy?.lastname}
-        </td>
-       
-        <td className="px-6 flex py-4 whitespace-nowrap  text-sm font-medium">
-         
-          <div onClick={() => handleDelete(annonce._id)} className="ml-2 text-red-600 hover:text-red-900 cursor-pointer">
-          <DeleteOutlineOutlinedIcon/>
-          </div>
-          <Link to={annonce._id}>
-          <div className="ml-2 text-green-600 hover:text-red-900 cursor-pointer">
-            <VisibilityOutlinedIcon/>
-          </div>
-          </Link>
-        </td>
-      </tr>
-     
-      
-      ))
+    {wordEntered ==="" ? (<> 
+      {
+        data?.slice(
+             (currentPage - 1) * annoncePerPage,
+             currentPage * annoncePerPage
+            ).map((annonce)=>(
+              <AnnonceTable key={annonce._id} annonce={annonce} handleDelete={handleDelete}/>
+            ))
+      }
+    </>): (<> 
+      {
+        filteredData?.slice(
+             (currentPage - 1) * annoncePerPage,
+             currentPage * annoncePerPage
+            ).map((annonce)=>(
+              <AnnonceTable key={annonce._id} annonce={annonce} handleDelete={handleDelete}/>
+            ))
+      }
+    </>)}
 
-    }
-
-  <Pagination layout="navigation" currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} showIcons />
-
-   
    
   </tbody>
-</table>}
+</table>
+<Pagination layout="navigation" currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} showIcons />
+
+
+
+</>
+
+      
+
+
+
+}
 
 
     </div>

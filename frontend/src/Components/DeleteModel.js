@@ -3,16 +3,15 @@ import { Button, Modal } from 'flowbite-react';
 import { API_BASE_URL } from '../constant/constant';
 function DeleteModel({openModal, setOpenModal, item}) {
 
-
   const handleSubmit = async (event) => {
   
     try {
-      const response = axios.delete(API_BASE_URL+'/annonce/'+item._id,{withCredentials: true} );
+       axios.delete(API_BASE_URL+'/annonce/'+item._id,{withCredentials: true} );
       window.location.reload();
       setOpenModal(false)
 
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.log(error)
     }
   };    
 
@@ -26,14 +25,14 @@ function DeleteModel({openModal, setOpenModal, item}) {
       <div className="text-center">
      
         <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-          Are you sure you want to delete this Cours?
+          Aver vous sure de supprimer cette annonce ?
         </h3>
         <div className="flex justify-center gap-4">
           <Button type='submite' color="failure" onClick={handleSubmit}>
-            {"Yes, I'm sure"}
+            {"Oui, Supprimer"}
           </Button>
           <Button color="gray" onClick={() => setOpenModal(false)}>
-            No, cancel
+            Non, Annuler
           </Button>
         </div>
       </div>
