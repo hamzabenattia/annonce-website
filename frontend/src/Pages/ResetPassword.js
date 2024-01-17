@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import FooterComponent from '../Components/FooterComponent';
 import { Spinner } from 'flowbite-react';
+import { API_BASE_URL } from '../constant/constant';
 
 const ResetPassword = () => {
 

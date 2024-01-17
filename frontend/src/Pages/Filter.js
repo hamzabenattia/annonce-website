@@ -8,7 +8,6 @@ import { Pagination, Select, Spinner } from 'flowbite-react'
 import Card from '../Components/Home/Card';
 import CardSkeleton from '../Components/CardSkeleton';
 import useFetch from '../Hooks/useFetch';
-import { Search } from '@mui/icons-material';
 
 
 function Filter() {
