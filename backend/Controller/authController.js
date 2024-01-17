@@ -30,7 +30,7 @@ exports.register = async (req, res, next) => {
       if (user) {
         const confirmationToken = await user.getemailConfirmation();
         await user.save({ validateBeforeSave: false });
-        const confirmationUrl = `http://localhost:3000/confirme/${confirmationToken}`;
+        const confirmationUrl = `https://tayara-clone.onrender.com/confirme/${confirmationToken}`;
         try {
           await sendEmail({
             email: user.email,
@@ -141,7 +141,7 @@ exports.forgotPassword = async (req, res, next) => {
     }else{
       const resetToken = await user.getResetPasswordToken();
       await user.save({ validateBeforeSave: false });
-      const resetPasswordUrl = `http://localhost:3000/reset-password/${resetToken}`;
+      const resetPasswordUrl = `https://tayara-clone.onrender.com/reset-password/${resetToken}`;
 
     
       try {

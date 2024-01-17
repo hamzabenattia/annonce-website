@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createContext, useContext, useState } from 'react';
+import { API_BASE_URL } from '../constant/constant';
 
 const AuthContext = createContext();
 
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     const login = async () => {
         try {
             setIsLoading(true);
-            await axios.post('http://localhost:1000/api/auth/login', formData , {withCredentials: true} 
+            await axios.post(API_BASE_URL+'/auth/login', formData , {withCredentials: true} 
               )
             .then((res) => {
                 window.localStorage.setItem('isLoggedIn', true);
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }) => {
         try {
             e.preventDefault();
             setIsLoading(true);
-            await axios.post('http://localhost:1000/api/auth/signup', formData , {withCredentials: true} 
+            await axios.post(API_BASE_URL+'/auth/signup', formData , {withCredentials: true} 
               )
             .then((res) => {
                 setIsLoading(false);
@@ -67,7 +68,7 @@ export const AuthProvider = ({ children }) => {
 
 
     const logout = async () => {
-      await axios.get('http://localhost:1000/api/auth/logout',{withCredentials: true} );
+      await axios.get(API_BASE_URL+'/auth/logout',{withCredentials: true} );
         window.localStorage.removeItem('isLoggedIn');
         window.localStorage.removeItem('user');
         setLoggedIn(false);

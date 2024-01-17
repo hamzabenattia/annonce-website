@@ -26,7 +26,7 @@ const ResetPassword = () => {
     }
     else{
         setIsLoading(true);
-        await axios.put('http://localhost:1000/api/auth/password/reset/'+params.token, {password} , {withCredentials: true} 
+        await axios.put(API_BASE_URL+'/auth/password/reset/'+params.token, {password} , {withCredentials: true} 
           )
         .then((res) => {
             setIsLoading(false);
