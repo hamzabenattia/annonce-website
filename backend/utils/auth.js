@@ -5,9 +5,8 @@ function generateToken(res, userId) {
     expiresIn: '7d',
   });
 
-  console.log(token);
 
-  res.cookie('token', token, { maxAge: 900000, httpOnly: true , domain: '.bledi.xyz' });
+  res.cookie('token', token, { maxAge: 900000, httpOnly: true });
 }
 
 
