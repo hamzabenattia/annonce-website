@@ -23,7 +23,7 @@ app.use(morgan('dev'))
 
 
 app.use(cors({
-    origin:'*', 
+    origin:'https://bledi.xyz', 
     credentials:true,          
 }))
 
