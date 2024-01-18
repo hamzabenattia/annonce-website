@@ -5,10 +5,11 @@ function generateToken(res, userId) {
     expiresIn: '7d',
   });
 
-  res.cookie('token', token, {
-    maxAge: 86400000,
+  console.log(token);
 
-  });
+  res.cookie('token', token, { maxAge: 900000, httpOnly: true });
 }
+
+
 
 module.exports = generateToken;
