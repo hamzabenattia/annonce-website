@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     const login = async () => {
         try {
             setIsLoading(true);
-            await axios.post(API_BASE_URL+'/auth/login', formData , {withCredentials: true} 
+            await axios.post('/api/auth/login', formData , {withCredentials: true} 
               )
             .then((res) => {
                 window.localStorage.setItem('isLoggedIn', true);
