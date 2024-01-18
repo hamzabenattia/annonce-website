@@ -23,7 +23,7 @@ app.use(morgan('dev'))
 
 
 app.use(cors({
-    origin:'https://www.bledi.xyz', 
+    origin:['https://www.bledi.xyz','https://tayara-clone.onrender.com'], 
     credentials:true,          
 }))
 
