@@ -16,7 +16,7 @@ const Card = ({ data }) => {
             }
           </Carousel>
     </div>
-    <Link to={`annonce/${data._id}`} >
+    <Link to={`/annonce/${data._id}`} >
     <div className="mt-1 p-2">
       <h2 className="text-slate-700">{data.title}</h2>
       <p className="text-slate-600 mt-1 text-sm">{data.category.categoryName}</p>
