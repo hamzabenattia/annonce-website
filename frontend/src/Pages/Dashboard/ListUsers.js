@@ -106,7 +106,7 @@ const ListUsers = () => {
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <select onChange={(e) => handelUserEdit(user._id ,e.target.value,null) } className={`font-semibold text-sm ${user.isActive && 'bg-green-100 text-green-800'} ${!user.isActive && 'bg-red-100 text-red-800'}` }   defaultValue={user.isActive}>
+          <select onChange={(e) => handelUserEdit(user._id ,e.target.value,user.isAdmin) } className={`font-semibold text-sm ${user.isActive && 'bg-green-100 text-green-800'} ${!user.isActive && 'bg-red-100 text-red-800'}` }   defaultValue={user.isActive}>
               <option className='rounded-full bg-green-100 text-green-800'  value={true}>Active</option>
               <option  className='bg-red-100 text-red-800' value={false}>Desactive</option>
             </select>
@@ -114,7 +114,7 @@ const ListUsers = () => {
   
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            <select onChange={(e) => handelUserEdit(user._id ,null, e.target.value) } className={`font-semibold text-sm ${user.isAdmin && 'bg-blue-100 text-blue-800'} ${!user.isAdmin && 'bg-gray-100 text-gray-800'}` }   defaultValue={user.isAdmin}>
+            <select onChange={(e) => handelUserEdit(user._id ,user.isActive, e.target.value) } className={`font-semibold text-sm ${user.isAdmin && 'bg-blue-100 text-blue-800'} ${!user.isAdmin && 'bg-gray-100 text-gray-800'}` }   defaultValue={user.isAdmin}>
               <option className='rounded-full bg-blue-100 text-blue-800'  value={true}>Admin</option>
               <option  className='bg-gray-100 text-gray-800' value={false}>User</option>
             </select>
