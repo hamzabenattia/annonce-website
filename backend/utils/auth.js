@@ -6,7 +6,7 @@ function generateToken(res, userId) {
   });
 
 
-  res.cookie('token', token, { maxAge: 900000, httpOnly: true, sameSite:"None", secure: true });
+  res.cookie('token', token, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite:"None", secure: true });
 }
 
 
