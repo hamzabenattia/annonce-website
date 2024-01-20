@@ -84,7 +84,7 @@ const Header = () => {
             :
             <Link to='/login'>
               <Button variant="contained" style={{ color: "#ffffff", backgroundColor: "#EE493A" }} startIcon={<AccountCircleIcon />}>
-                Ce connecter
+                Se Connecter
               </Button>
             </Link>
         }
