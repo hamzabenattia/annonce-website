@@ -29,7 +29,7 @@ const CategoryList = ({category ,data ,loading, error}) => {
 
   <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-3 p-6 md:grid-cols-2 lg:grid-cols-4">
    {
-    loading  ? <div className='flex flex-wrap gap-3'>{Array.from(new Array(4)).map((item,i)=> <CardSkeleton key={i}/> )} </div>
+    loading  ? <div className='flex gap-3'>{Array.from(new Array(4)).map((item,i)=> <CardSkeleton key={i}/> )} </div>
     : error ? <div className='text-centertext-red-500 '>{error}</div> :  
     data?.length <1  ? <div className='text-center  font-bold text-slate-900'>Aucune annonce trouvée</div> :
     data?.slice(
