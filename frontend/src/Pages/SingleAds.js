@@ -6,7 +6,7 @@ import useFetch from '../Hooks/useFetch';
 import { Link, useParams } from 'react-router-dom';
 import { API_BASE_URL } from '../constant/constant';
 import { formatDistance } from "date-fns";
-import { Carousel } from 'flowbite-react';
+import { Carousel, Spinner } from 'flowbite-react';
 
 const SingleAds = () => {
 
