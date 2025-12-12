@@ -142,6 +142,41 @@ npm start
 
 The frontend will start on `http://localhost:3000`
 
+### Create Admin Account
+
+After setting up the backend, create an admin account:
+
+```bash
+cd backend
+npm run create-admin
+```
+
+This will create an admin user with the following default credentials:
+- **Email**: admin@admin.com
+- **Password**: admin123
+
+#### Custom Admin Credentials
+
+You can also create an admin with custom credentials:
+
+```bash
+# Using npm script with custom parameters
+node createAdmin.js --email myadmin@example.com --password securepassword --firstname John --lastname Doe
+
+# Or directly with node
+cd backend
+node createAdmin.js -e myadmin@example.com -p securepassword -f John -l Doe
+```
+
+**Command-line options:**
+- `-e, --email`: Admin email address
+- `-p, --password`: Admin password
+- `-f, --firstname`: Admin first name
+- `-l, --lastname`: Admin last name
+- `-h, --help`: Show help message
+
+⚠️ **Important**: Change the password after first login for security!
+
 ### Production Build
 
 #### Build Frontend
@@ -168,6 +203,14 @@ The production build will be served from the backend.
 4. **Post Ads**: Create new classified ads with images
 5. **Manage Ads**: Edit or delete your own ads
 6. **Admin Panel**: Access administrative features (admin accounts only)
+
+### Admin Account
+
+Use the admin account to manage users and ads:
+- **Login** with admin credentials (admin@admin.com / admin123)
+- **Approve/Reject** ads from the admin panel
+- **Manage** user accounts and categories
+- **View** system statistics and reports
 
 ## 🗂️ Project Structure
 
@@ -252,6 +295,11 @@ annonce-website/
 5. **Port Already in Use**
    - Change the PORT in .env file
    - Kill processes using the port: `npx kill-port 1000`
+
+6. **Admin Creation Issues**
+   - Ensure MongoDB is running and MONGO_URL is correct
+   - Check if admin user already exists: `npm run create-admin` will show existing credentials
+   - Verify .env file exists and is properly configured
 
 ### Development Tips
 
