@@ -30,7 +30,7 @@ exports.register = async (req, res, next) => {
       if (user) {
         const confirmationToken = await user.getemailConfirmation();
         await user.save({ validateBeforeSave: false });
-        const confirmationUrl = `https://tayara-clone.onrender.com/confirme/${confirmationToken}`;
+        const confirmationUrl = `${process.env.FRONTEND_URL}/confirme/${confirmationToken}`;
         try {
           await sendEmail({
             email: user.email,
@@ -51,6 +51,7 @@ exports.register = async (req, res, next) => {
       }
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       message: "Erreur Serveur."
     });
@@ -141,7 +142,7 @@ exports.forgotPassword = async (req, res, next) => {
     }else{
       const resetToken = await user.getResetPasswordToken();
       await user.save({ validateBeforeSave: false });
-      const resetPasswordUrl = `https://tayara-clone.onrender.com/reset-password/${resetToken}`;
+      const resetPasswordUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
     
       try {

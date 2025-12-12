@@ -99,7 +99,7 @@ exports.emailConfirmation = (confirmationUrl) => {
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
           <tr>
             <td align="center" valign="top" style="padding: 36px 24px;">
-              <a href="https://tayara-clone.onrender.com/" target="_blank" style="display: inline-block;">
+              <a href="${process.env.FRONTEND_URL}/" target="_blank" style="display: inline-block;">
                 <img src="https://www.tayara.tn/media/tayara-logo.svg" alt="Logo" border="0" width="80"
                   style="display: block; width: 80px; max-width: 80px; min-width: 48px;">
               </a>
@@ -135,7 +135,7 @@ exports.emailConfirmation = (confirmationUrl) => {
             <td align="left" bgcolor="#ffffff"
               style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
               <p style="margin: 0;">Tap the button below to confirm your email address. If you didn't create an account
-                with <a href="https://tayara-clone.onrender.com">Tayara</a>, you can safely delete this email.</p>
+                with <a href="${process.env.FRONTEND_URL}">Tayara</a>, you can safely delete this email.</p>
             </td>
           </tr>
           <tr>

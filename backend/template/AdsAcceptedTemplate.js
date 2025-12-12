@@ -22,7 +22,7 @@ exports.AdsAcceptedTemplate = (id) => {
                         <p class="text-sm mb-5">
                             Votre annonce a été acceptée par l'administrateur. Vous pouvez la consulter sur le site.
                              </p>
-                            <a href="https://tayara-clone.onrender.com/annonce/${id}" class="bg-orange-400 text-white p-2 rounded-2xl cursor-pointer">Consulter </a>
+                            <a href="${process.env.FRONTEND_URL}/annonce/${id}" class="bg-orange-400 text-white p-2 rounded-2xl cursor-pointer">Consulter </a>
                 </div>
     </body>
     </html>
