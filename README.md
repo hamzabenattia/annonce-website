@@ -118,6 +118,20 @@ For email functionality, you can use:
 2. Go to your Dashboard
 3. Copy your Cloud Name, API Key, and API Secret
 
+### Frontend Configuration
+
+Update the API base URL in `frontend/src/constant/constant.js` to match your backend URL:
+
+```javascript
+export const API_BASE_URL = "http://localhost:1000/api";
+```
+
+**Note:** The port number (1000) should match the `PORT` value in your backend `.env` file. For production, update this to your deployed backend URL:
+
+```javascript
+export const API_BASE_URL = "https://your-backend-domain.com/api";
+```
+
 ## 🚀 Running the Application
 
 ### Development Mode
